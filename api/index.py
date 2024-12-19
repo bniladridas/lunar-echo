@@ -1,13 +1,9 @@
-# Ensure you have installed the required dependencies:
-# pip install openai pyttsx3 SpeechRecognition python-dotenv flask
-
 import os
 import openai
 import pyttsx3
 import speech_recognition as sr
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, jsonify
-import threading
+from flask import Flask, send_from_directory, request, jsonify
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,15 +16,13 @@ app = Flask(__name__)
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
-engine_lock = threading.Lock()
 
 def speak(text):
     """Convert text to speech."""
-    with engine_lock:
-        if engine._inLoop:
-            engine.endLoop()
-        engine.say(text)
-        engine.runAndWait()
+    if engine._inLoop:
+        engine.endLoop()
+    engine.say(text)
+    engine.runAndWait()
 
 def listen():
     """Listen to user input via microphone."""
@@ -63,8 +57,8 @@ def chat_with_openai(prompt):
         return None
 
 @app.route('/')
-def serve_frontend():
-    return send_from_directory(app.static_folder, 'index.html')
+def serve_index():
+    return send_from_directory('..', 'index.html')
 
 @app.route('/send', methods=['POST'])
 def send():
