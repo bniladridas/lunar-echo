@@ -1,1 +1,5 @@
 Flask==3.0.3
+openai
+pyttsx3
+SpeechRecognition
+python-dotenv
