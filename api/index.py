@@ -63,8 +63,8 @@ def chat_with_openai(prompt):
         return None
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def serve_frontend():
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/send', methods=['POST'])
 def send():
