@@ -62,6 +62,11 @@ python app.py
 Open http://localhost:5000 in your browser
 ```
 
+## 🚀 Deployment
+
+### Vercel Deployment Note
+When deploying to Vercel, the backend will run in a server environment where text-to-speech functionality like `pyttsx3` or `say` won't work because these require audio hardware or OS-specific features that are not available in a server environment. Additionally, ALSA (Advanced Linux Sound Architecture) is often used for audio playback on Linux systems, but it is not available in most server environments.
+
 ## 🧬 System Architecture
 
 ```mermaid
